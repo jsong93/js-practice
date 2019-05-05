@@ -6,5 +6,5 @@ define(['moduel'], () => {
     console.log(`hello ${name}`);
   };
 
-  return { sayHello };
+  return { name, sayHello };
 });

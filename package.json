@@ -1,0 +1,23 @@
+{
+  "name": "jslearn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "async.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsong93/js-practice.git"
+  },
+  "author": "jsong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsong93/js-practice/issues"
+  },
+  "homepage": "https://github.com/jsong93/js-practice#readme",
+  "dependencies": {
+    "requirejs": "^2.3.6",
+    "seajs": "^3.0.3"
+  }
+}

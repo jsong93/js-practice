@@ -6,4 +6,5 @@ const sayHelloName = function() {
 };
 
 module.exports = { name, age, sayHelloName };
-// 或
+// { name: 'jsong', age: 1, sayHelloName: [Function: sayHelloName] }
+console.log(module.exports);
