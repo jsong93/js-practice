@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jsong93/js-practice#readme",
   "dependencies": {
+    "async": "^2.6.2",
     "requirejs": "^2.3.6",
     "seajs": "^3.0.3"
   }
