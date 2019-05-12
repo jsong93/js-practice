@@ -15,3 +15,8 @@ async.series([
     }, 500);
   }
 ]);
+// 异步 并行的 parallel 平行的
+async.parallel([
+  a => setTimeout(() => console.log(1), 1000),
+  a => setTimeout(() => console.log(2), 100)
+]);
