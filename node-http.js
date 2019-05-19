@@ -1,5 +1,6 @@
 const http = require('http');
-const port = 8080;
+// 可以设置动态端口
+const port = process.env.PORT || 8080;
 
 const server = http.createServer((req, res) => {
   // end
@@ -9,7 +10,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, () => {
-  console.log('Server listening on 8080');
+  console.log(`Server listening on ${port}`);
 });
 
 // 调试 还没弄明白
