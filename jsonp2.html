@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSONP</title>
+    <script>
+      function cb(data) {
+        console.log(`我叫${data}`);
+        // let jsonpScript = document.getElementsByClassName('jsonpScript')[0];
+        // document.body.removeChild(jsonpScript);
+        jsonp();
+      }
+      function jsonpRequest(callback) {
+        let jsonpScript = document.createElement('script');
+        // jsonpScript.src = `http://localhost:3000/js/snow.js?callback=${callback}`;
+        jsonpScript.src = `http://localhost:3000/js/snow.js`;
+        document.body.appendChild(jsonpScript);
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="jsonpRequest()">发个JSONP请求</button>
+  </body>
+</html>
