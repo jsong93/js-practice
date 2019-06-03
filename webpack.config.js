@@ -27,6 +27,11 @@ module.exports = {
     // module.hot 才能为true
     hot: true
   },
+  module: { rules: [{ test: /\.css$/, use: ['style-loader', 'css-loader'] }] },
+
+  // 在 压缩的js中 删除 dead code
+  // 注意，也可以在命令行接口中使用 --optimize-minimize 标记，来使用 UglifyJSPlugin。
+  mode: 'production',
   // devtool: 'cheap-source-map',
   // devtool: 'eval-source-map',
   plugins: [
@@ -43,7 +48,7 @@ module.exports = {
     // 可以生成一个manifest.json 文件 记录了打包的文件
     new ManifestWebpackPlugin(),
     // 以便更容易查看要修补(patch)的依赖
-    new webpack.NamedModulesPlugin()
-    // new webpack.HotModuleReplacementPlugin()
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
