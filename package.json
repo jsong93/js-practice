@@ -15,7 +15,8 @@
     "start-prod": "webpack-dev-server --open --config webpack.prod.js --port 3003",
     "server:dev": "webpack-dev-server --hot -inline --content-base dist/ --port 3001",
     "server": "node server.js",
-    "dev-server": "node dev-server.js"
+    "dev-server": "node dev-server.js",
+    "analysis":"webpack --profile --json > stats.json"
   },
   "repository": {
     "type": "git",

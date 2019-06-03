@@ -7,14 +7,22 @@ const path = require('path'),
 module.exports = {
   // entry: './src/index.js',
   entry: {
-    app: './src/index.js'
+    // app: './src/index.js',
+    another: './src/another-module.js',
+    // dynamicIndex: './src/dynamicIndex.js'
+    lazyIndex: './src/lazyIndex.js',
+    vender: ['lodash']
     // print: './src/print.js'
     // 发布后代码放在那 内存中
   },
   output: {
-    filename: '[name].bundle.js',
+    // filename: '[name].bundle.js',
+    // hash值
+    //HotModuleReplacementPlugin 热替换会影响chunkhash
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, './dist'),
     publicPath: '/'
+    // chunkFilename: '[name].bundle.js'
   },
   // 可以帮助我们 定位错误 查看到源码
   devtool: 'inline-source-map',
@@ -49,6 +57,33 @@ module.exports = {
     new ManifestWebpackPlugin(),
     // 以便更容易查看要修补(patch)的依赖
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    // new webpack.HotModuleReplacementPlugin(),
+
+    // 代码改变不会影响  vender.js
+    new webpack.HashedModuleIdsPlugin()
+
+    // 提取公共的模块 比如都用到lodash  方法已经被删除了
+    // Error: webpack.optimize.CommonsChunkPlugin has been removed, please use config.optimization.splitChunks instead.
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'common'
+    // })
+  ],
+  // 提取公共模块
+  optimization: {
+    splitChunks: {
+      // cacheGroups is an object where keys are the cache group names. All options from the ones listed above are possible: chunks, minSize, minChunks, maxAsyncRequests, maxInitialRequests, name. 可以自己设置一组一组的cache group来配对应的共享模块
+      cacheGroups: {
+        vender: {
+          name: 'vender',
+          chunks: 'all',
+          minChunks: 2
+        },
+        commons: {
+          name: 'common',
+          chunks: 'initial', // chunks 有三个可选值，”initial”, “async” 和 “all”. 分别对应优化时只选择初始的chunks，所需要的chunks 还是所有chunks
+          minChunks: 2 //minChunks 是split前，有共享模块的chunks的最小数目 ，默认值是1， 但我看示例里的代码在default里把它重写成2了，从常理上讲，minChunks = 2 应该是一个比较合理的选择吧。
+        }
+      }
+    }
+  }
 };
