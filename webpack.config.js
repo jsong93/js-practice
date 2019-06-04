@@ -2,16 +2,17 @@ const path = require('path'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin,
   ManifestWebpackPlugin = require('webpack-manifest-plugin'),
-  webpack = require('webpack');
+  webpack = require('webpack'),
+  WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   // entry: './src/index.js',
   entry: {
-    // app: './src/index.js',
-    another: './src/another-module.js',
+    app: './src/index.js'
+    // another: './src/another-module.js',
     // dynamicIndex: './src/dynamicIndex.js'
-    lazyIndex: './src/lazyIndex.js',
-    vender: ['lodash']
+    // lazyIndex: './src/lazyIndex.js',
+    // vender: ['lodash']
     // print: './src/print.js'
     // 发布后代码放在那 内存中
   },
@@ -35,7 +36,17 @@ module.exports = {
     // module.hot 才能为true
     hot: true
   },
-  module: { rules: [{ test: /\.css$/, use: ['style-loader', 'css-loader'] }] },
+  module: {
+    rules: [
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      // { test: require.resolve('./src/index.js'), use: 'imports-loader?this=>window' }
+      // 可以导出一些没有 exports的文件
+      {
+        test: require.resolve('./src/globals.js'),
+        use: 'exports-loader?file,parse=helpers.parse'
+      }
+    ]
+  },
 
   // 在 压缩的js中 删除 dead code
   // 注意，也可以在命令行接口中使用 --optimize-minimize 标记，来使用 UglifyJSPlugin。
@@ -60,7 +71,22 @@ module.exports = {
     // new webpack.HotModuleReplacementPlugin(),
 
     // 代码改变不会影响  vender.js
-    new webpack.HashedModuleIdsPlugin()
+    new webpack.HashedModuleIdsPlugin(),
+
+    // 用到lodash的时候自动导入
+    new webpack.ProvidePlugin(
+      { _: 'lodash' }
+      // 也可以直接导入某个方法
+      // { join: ['lodash', 'join'] }
+    ),
+
+    // 服务停止后  还在运行
+    new WorkboxPlugin.GenerateSW({
+      // 这些选项帮助 serviceworkers 快速启用
+      // 不允许遗留任何  旧的  serviceworkders  啥意思
+      clientsClaim: true,
+      skipWaiting: true
+    })
 
     // 提取公共的模块 比如都用到lodash  方法已经被删除了
     // Error: webpack.optimize.CommonsChunkPlugin has been removed, please use config.optimization.splitChunks instead.

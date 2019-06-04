@@ -1,7 +1,9 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import print from './print';
 import './style.css';
 import { cube } from './math';
+import { file, parse } from './globals';
+
 if (process.env.NODE_ENV !== 'production')
   console.log('look like we are in devlopment mode!');
 function component() {
@@ -24,7 +26,20 @@ function component() {
 
   return element;
 }
-
+parse();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./service-worker.js')
+      .then(registration => {
+        console.log('service worker registered', registration);
+      })
+      .catch(registrationError => {
+        console.log('service registration failed', registrationError);
+      });
+  });
+}
+// this.alert('alert');
 // 当改变print.js时，按钮的console并没有改变
 document.body.appendChild(component());
 

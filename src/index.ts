@@ -1,0 +1,1 @@
+const jsong: string = 'jsong';
