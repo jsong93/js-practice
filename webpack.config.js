@@ -8,8 +8,8 @@ const path = require('path'),
 module.exports = {
   // entry: './src/index.js',
   entry: {
-    app: './src/index.js'
-    // another: './src/another-module.js',
+    app: './src/index.js',
+    another: './src/another-module.js'
     // dynamicIndex: './src/dynamicIndex.js'
     // lazyIndex: './src/lazyIndex.js',
     // vender: ['lodash']
