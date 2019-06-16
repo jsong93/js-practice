@@ -9,3 +9,14 @@
 }
 
 // function b() {}
+
+{
+  console.log('-----------------引擎查找LHS&RHS---------------------')
+  function foo(a) {
+    var b = a;
+    return a + b;
+  }
+
+  var c = foo(2);
+  console.log('-------------------------------------------------')
+}
