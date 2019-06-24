@@ -113,7 +113,7 @@
   try {
     undefined();
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
   // undefined();
   console.log('after error');
@@ -177,7 +177,11 @@
 
 {
   console.log('------------------变量提升-----------------');
-  foo1(); // TypeError
+  try {
+    foo1(); // TypeError
+  } catch (error) {
+    console.log(error);
+  }
   var foo1 = function foo() {
     console.log('foo');
   };
@@ -186,11 +190,70 @@
 
 {
   console.log('------------------变量提升-----------------');
-  foo2(); // TypeError
-  var foo2;
-
+  try {
+    foo2(); // TypeError
+    var foo2;
+  } catch (error) {
+    console.log(error);
+  }
   foo2 = function() {
     console.log('foo');
   };
   console.log('-------------------------------------------');
+}
+
+{
+  console.log('-------------------闭包-------------------------');
+  function foo() {
+    var a = 1;
+    var bbb = 10;
+    function bar() {
+      console.log('闭包', a);
+    }
+    return bar;
+  }
+  var baz = foo();
+  baz();
+  for (var i = 0; i < 6; i++) {
+    let j = i;
+    setTimeout(() => {
+      console.log('timeout let', j);
+    });
+    setTimeout(() => {
+      console.log('timeout', i);
+    });
+    (() => {
+      console.log('自执行', i);
+    })();
+    (() => {
+      setTimeout(() => {
+        console.log('timeout自执行', i);
+      });
+    })();
+    (i => {
+      setTimeout(() => {
+        console.log('timeout自执行+传参', i);
+      });
+    })(i);
+  }
+
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      console.log('let', i);
+    });
+  }
+  console.log('-----------------------------------------');
+}
+
+{
+  console.log('---------------------闭包----------------------');
+  // for (var i = 0; i < 6; i++) {
+  //   setTimeout(function timer() {
+  //     console.log(i);
+  //   });
+  //   (function timer1() {
+  //     console.log(i);
+  //   })();
+  //   console.log('--------------------------------------------');
+  // }
 }

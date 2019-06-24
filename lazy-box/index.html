@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+      <defs>
+        <linearGradient
+          id="grad"
+          x1="0%"
+          y1="50%"
+          x2="0%"
+          y2="30%"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop class="gradColor" offset="0" stop-color="#E3476F" />
+          <stop offset="1" stop-opacity="0" stop-color="#FFF" />
+        </linearGradient>
+        <linearGradient
+          id="refGrad"
+          x1="0%"
+          y1="70"
+          x2="0%"
+          y2="90"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop
+            class="gradColor"
+            offset="0"
+            stop-opacity="0.4"
+            stop-color="#E3476F"
+          />
+          <stop offset="1" stop-opacity="0" stop-color="#FFF" />
+        </linearGradient>
+        <g id="whole">
+          <rect
+            id="sqr"
+            x="58"
+            y="38"
+            width="36"
+            height="36"
+            rx="0.74"
+            ry="0.74"
+          />
+        </g>
+        <mask id="refGradMask">
+          <rect
+            id="refSqr"
+            x="58"
+            y="74.1"
+            width="36"
+            height="36"
+            rx="0.74"
+            ry="0.74"
+            fill="#FFF"
+          />
+        </mask>
+      </defs>
+      <g stroke="#FBE9DF" stroke-width="0.05" fill="none">
+        <ellipse class="rip" cx="110" cy="74" rx="0" ry="0" />
+        <ellipse class="rip" cx="110" cy="74" rx="0" ry="0" />
+        <ellipse class="rip" cx="110" cy="74" rx="0" ry="0" />
+      </g>
+      <use xlink:href="#whole" fill="#E3476F" />
+      <g mask="url(#refGradMask)">
+        <rect fill="url(#refGrad)" width="100%" height="50" x="0" y="73.4" />
+      </g>
+      <g id="particleContainer" fill="#E3476F">
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+        <circle cx="110" cy="72" r="1" opacity="0" />
+      </g>
+    </svg>
+    <script src="./index.js"></script>
+  </body>
+</html>

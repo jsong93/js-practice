@@ -1,0 +1,437 @@
+body {
+    margin: 0;
+  }
+  /* The .page-wrap centers the clock on the page*/
+  .page-wrap {
+    background-color: #EEE;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+  }
+  /* The .container creates spacing around the clock and the viewport edges */
+  .container {
+    width: 70%;
+    max-width: 600px;
+    min-width: 250px;
+  }
+  /* This div makes sure the clock stays square while adjusting to screen width */
+  .aspect-ratio-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+  }
+  /* This is a background that serves as a border */
+  .clock-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 7%; /* Width of the clock border */
+  }
+  /* This gives the border and middle button a matching gradient */
+  .clock-border,
+  .center-button {
+    background-image: linear-gradient(to right, #225378, #1695A3);
+  }
+  /* This gives the border, middle button and hands a matching box-shadow */
+  .clock-border,
+  .center-button,
+  .clock-hands li {
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2);
+  }
+  /* This rounds everything that should be round */
+  .clock-border,
+  .clock-face,
+  .clock-face ul {
+    border-radius: 50%;
+  }
+  /* This contains our clock hands and numbers */
+  .clock-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+  }
+  /* Style the numbers ul and the hands ul to lay on top of eachother and cover the clock face */
+  .clock-face ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+  }
+  /* Style the numbers as vertical bars that can be rotated around the center of the clock */
+  .clock-numbers li {
+    height: 45%; /* This plus the top value creates margin between #s and clock edges */
+    top: 5%; /* This plus the height value needs to add up to 50% */
+    width: 3rem;
+    text-align: center;
+    font-size: 2rem;
+    font-family: monospace;
+  }
+  /* Add a border radisu for visual effect */
+  .clock-hands li {
+    border-radius: 5px;
+  }
+  /* Set Clock Numbers to have a fixed width */
+  .clock-numbers li {
+  }
+  /* Center the clock elements and set them to rotate from the middle of the clock */
+  .clock-numbers li,
+  .clock-hands li,
+  .clock-ticks li {
+    position: absolute;
+    left: 50%;
+    transform-origin: bottom center;
+  }
+  /* rotate the number containers into place and adjust the digits back so that they're upright */
+  
+  .clock-numbers li:nth-of-type(1) {
+    transform: translateX(-50%) rotate(30deg);
+  }
+  
+  .clock-numbers li:nth-of-type(1) div {
+    transform: rotate(-30deg);
+  }
+  
+  .clock-numbers li:nth-of-type(2) {
+    transform: translateX(-50%) rotate(60deg);
+  }
+  
+  .clock-numbers li:nth-of-type(2) div {
+    transform: rotate(-60deg);
+  }
+  
+  .clock-numbers li:nth-of-type(3) {
+    transform: translateX(-50%) rotate(90deg);
+  }
+  
+  .clock-numbers li:nth-of-type(3) div {
+    transform: rotate(-90deg);
+  }
+  
+  .clock-numbers li:nth-of-type(4) {
+    transform: translateX(-50%) rotate(120deg);
+  }
+  
+  .clock-numbers li:nth-of-type(4) div {
+    transform: rotate(-120deg);
+  }
+  
+  .clock-numbers li:nth-of-type(5) {
+    transform: translateX(-50%) rotate(150deg);
+  }
+  
+  .clock-numbers li:nth-of-type(5) div {
+    transform: rotate(-150deg);
+  }
+  
+  .clock-numbers li:nth-of-type(6) {
+    transform: translateX(-50%) rotate(180deg);
+  }
+  
+  .clock-numbers li:nth-of-type(6) div {
+    transform: rotate(-180deg);
+  }
+  
+  .clock-numbers li:nth-of-type(7) {
+    transform: translateX(-50%) rotate(-150deg);
+  }
+  
+  .clock-numbers li:nth-of-type(7) div {
+    transform: rotate(150deg);
+  }
+  
+  .clock-numbers li:nth-of-type(8) {
+    transform: translateX(-50%) rotate(-120deg);
+  }
+  
+  .clock-numbers li:nth-of-type(8) div {
+    transform: rotate(120deg);
+  }
+  
+  .clock-numbers li:nth-of-type(9) {
+    transform: translateX(-50%) rotate(-90deg);
+  }
+  
+  .clock-numbers li:nth-of-type(9) div {
+    transform: rotate(90deg);
+  }
+  
+  .clock-numbers li:nth-of-type(10) {
+    transform: translateX(-50%) rotate(-60deg);
+  }
+  
+  .clock-numbers li:nth-of-type(10) div {
+    transform: rotate(60deg);
+  }
+  
+  .clock-numbers li:nth-of-type(11) {
+    transform: translateX(-50%) rotate(-30deg);
+  }
+  
+  .clock-numbers li:nth-of-type(11) div {
+    transform: rotate(30deg);
+  }
+  /* Number 12 just needs to be centered. Not rotated */
+  .clock-numbers li:nth-of-type(12),
+  .clock-hands li {
+    transform: translateX(-50%);
+  }
+  /* Hand height plus top margin should equal 50% of the clock face */
+  .second-hand {
+    top: 10%;
+    height: 40%;
+    width: 1.5%;
+    background-color: #777;
+  }
+  /* Use smaller height and larger top values to create shorter hands */
+  .minute-hand {
+    top: 15%;
+    height: 35%;
+    width: 2%;
+    background-color: #225378;
+    animation: tick 3600s linear infinite;
+  }
+  /* Use smaller height and larger top values to create shorter hands */
+  .hour-hand {
+    top: 20%;
+    height: 30%;
+    width: 3%;
+    background-color: #1695A3;
+    animation: tick 43200s linear infinite;
+  }
+  /* Give the ticks a fluid width */
+  .clock-ticks li {
+    display: flex;
+    justify-content: center;
+    width: 1%;
+    height: 50%; /* This plus the top value creates margin between #s and clock edges */
+    top: 0; /* This plus the height value needs to add up to 50% */
+  }
+  /* Make the ticks visible */
+  .clock-ticks div {
+    width: 100%;
+    height: 4%;
+    background-color: rgba(119,119,119,.5);
+  }
+  /* Rotate the ticks into place */
+  .clock-ticks li:nth-of-type(1) {
+    transform: rotate(6deg);
+  }
+  .clock-ticks li:nth-of-type(2) {
+    transform: rotate(12deg);
+  }
+  .clock-ticks li:nth-of-type(3) {
+    transform: rotate(18deg);
+  }
+  .clock-ticks li:nth-of-type(4) {
+    transform: rotate(24deg);
+  }
+  .clock-ticks li:nth-of-type(5) {
+    transform: rotate(30deg);
+  }
+  .clock-ticks li:nth-of-type(6) {
+    transform: rotate(36deg);
+  }
+  .clock-ticks li:nth-of-type(7) {
+    transform: rotate(42deg);
+  }
+  .clock-ticks li:nth-of-type(8) {
+    transform: rotate(48deg);
+  }
+  .clock-ticks li:nth-of-type(9) {
+    transform: rotate(54deg);
+  }
+  .clock-ticks li:nth-of-type(10) {
+    transform: rotate(60deg);
+  }
+  .clock-ticks li:nth-of-type(11) {
+    transform: rotate(66deg);
+  }
+  .clock-ticks li:nth-of-type(12) {
+    transform: rotate(72deg);
+  }
+  .clock-ticks li:nth-of-type(13) {
+    transform: rotate(78deg);
+  }
+  .clock-ticks li:nth-of-type(14) {
+    transform: rotate(84deg);
+  }
+  .clock-ticks li:nth-of-type(15) {
+    transform: rotate(90deg);
+  }
+  .clock-ticks li:nth-of-type(16) {
+    transform: rotate(96deg);
+  }
+  .clock-ticks li:nth-of-type(17) {
+    transform: rotate(102deg);
+  }
+  .clock-ticks li:nth-of-type(18) {
+    transform: rotate(108deg);
+  }
+  .clock-ticks li:nth-of-type(19) {
+    transform: rotate(114deg);
+  }
+  .clock-ticks li:nth-of-type(20) {
+    transform: rotate(120deg);
+  }
+  .clock-ticks li:nth-of-type(21) {
+    transform: rotate(126deg);
+  }
+  .clock-ticks li:nth-of-type(22) {
+    transform: rotate(132deg);
+  }
+  .clock-ticks li:nth-of-type(23) {
+    transform: rotate(138deg);
+  }
+  .clock-ticks li:nth-of-type(24) {
+    transform: rotate(144deg);
+  }
+  .clock-ticks li:nth-of-type(25) {
+    transform: rotate(150deg);
+  }
+  .clock-ticks li:nth-of-type(26) {
+    transform: rotate(156deg);
+  }
+  .clock-ticks li:nth-of-type(27) {
+    transform: rotate(162deg);
+  }
+  .clock-ticks li:nth-of-type(28) {
+    transform: rotate(168deg);
+  }
+  .clock-ticks li:nth-of-type(29) {
+    transform: rotate(174deg);
+  }
+  .clock-ticks li:nth-of-type(30) {
+    transform: rotate(180deg);
+  }
+  .clock-ticks li:nth-of-type(31) {
+    transform: rotate(-6deg);
+  }
+  .clock-ticks li:nth-of-type(32) {
+    transform: rotate(-12deg);
+  }
+  .clock-ticks li:nth-of-type(33) {
+    transform: rotate(-18deg);
+  }
+  .clock-ticks li:nth-of-type(34) {
+    transform: rotate(-24deg);
+  }
+  .clock-ticks li:nth-of-type(35) {
+    transform: rotate(-30deg);
+  }
+  .clock-ticks li:nth-of-type(36) {
+    transform: rotate(-36deg);
+  }
+  .clock-ticks li:nth-of-type(37) {
+    transform: rotate(-42deg);
+  }
+  .clock-ticks li:nth-of-type(38) {
+    transform: rotate(-48deg);
+  }
+  .clock-ticks li:nth-of-type(39) {
+    transform: rotate(-54deg);
+  }
+  .clock-ticks li:nth-of-type(40) {
+    transform: rotate(-60deg);
+  }
+  .clock-ticks li:nth-of-type(41) {
+    transform: rotate(-66deg);
+  }
+  .clock-ticks li:nth-of-type(42) {
+    transform: rotate(-72deg);
+  }
+  .clock-ticks li:nth-of-type(43) {
+    transform: rotate(-78deg);
+  }
+  .clock-ticks li:nth-of-type(44) {
+    transform: rotate(-84deg);
+  }
+  .clock-ticks li:nth-of-type(45) {
+    transform: rotate(-90deg);
+  }
+  .clock-ticks li:nth-of-type(46) {
+    transform: rotate(-96deg);
+  }
+  .clock-ticks li:nth-of-type(47) {
+    transform: rotate(-102deg);
+  }
+  .clock-ticks li:nth-of-type(48) {
+    transform: rotate(-108deg);
+  }
+  .clock-ticks li:nth-of-type(49) {
+    transform: rotate(-114deg);
+  }
+  .clock-ticks li:nth-of-type(50) {
+    transform: rotate(-120deg);
+  }
+  .clock-ticks li:nth-of-type(51) {
+    transform: rotate(-126deg);
+  }
+  .clock-ticks li:nth-of-type(52) {
+    transform: rotate(-132deg);
+  }
+  .clock-ticks li:nth-of-type(53) {
+    transform: rotate(-138deg);
+  }
+  .clock-ticks li:nth-of-type(54) {
+    transform: rotate(-144deg);
+  }
+  .clock-ticks li:nth-of-type(55) {
+    transform: rotate(-150deg);
+  }
+  .clock-ticks li:nth-of-type(56) {
+    transform: rotate(-156deg);
+  }
+  .clock-ticks li:nth-of-type(57) {
+    transform: rotate(-162deg);
+  }
+  .clock-ticks li:nth-of-type(58) {
+    transform: rotate(-168deg);
+  }
+  .clock-ticks li:nth-of-type(59) {
+    transform: rotate(-174deg);
+  }
+  /* Add a button over top of the center of the clock for style and realism */
+  .center-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7%;
+    height: 7%;
+    border-radius: 50%;
+    z-index: 10;
+    border: 3px solid #ccc;
+  }
+  /* JavaScript will apply this animation for the hands initially */
+  @keyframes tickThrough {
+    100% {
+      transform: translateX(-50%) rotate(360deg);
+    }
+  }
+  /* When any hand hits 12 (zero rotation), JavaScript will add this animation which sets the hand to it's original point of zero rotation */
+  @keyframes tickRestart {
+    0% {
+      transform: translateX(-50%) rotate(0deg);
+    }
+    100% {
+      transform: translateX(-50%) rotate(360deg);
+    }
+  }
+  
+  @media screen and (min-width: 320px) {
+    .clock-numbers li {
+      font-size: calc(2rem + 6 * ((100vw - 320px) / 680));
+    }
+  }
+  @media screen and (min-width: 1000px) {
+    .clock-numbers li {
+      font-size: 3rem;
+    }
+  }

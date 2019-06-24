@@ -1,0 +1,24 @@
+body {
+  background-color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+svg {
+  /*  width: 800px;
+    height: 600px; */
+  height: 80%;
+  width: 80%;
+
+  visibility: hidden;
+}
