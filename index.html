@@ -5,8 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <style>
+      .box {
+        border: 1px solid #f00;
+        background-color: #eee;
+        width: 500px;
+        height: 100px;
+        vertical-align: middle;
+        display: table-cell;
+      }
+      .text {
+      }
+      .father {
+        position: relative;
+        height: 100px;
+        width: 100px;
+      }
+      .childern {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        bottom: 0;
+      }
+    </style>
   </head>
   <body>
+    <div class="box">
+      <div class="text">
+        我是单行测试文字
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="text">
+        我是多行文字我是多行文字是多行文字我是多行文字我是多行文字我是多行文字我是多行文字我是多行文字我是多行文字我是多行文字我是>多行文字我是多行文字
+      </div>
+    </div>
+    <div class="father"><div class="childern">jsong</div></div>
     <!-- <script type="module" src="./common.js"></script>
     <script type="module" src="./commonImports.js"></script> -->
     <!--     <script type="module" src="./es6.js"></script>
