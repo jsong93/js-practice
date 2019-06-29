@@ -257,3 +257,69 @@
   //   console.log('--------------------------------------------');
   // }
 }
+
+{
+  var MyModules = (() => {
+    var modules = [];
+
+    function define(name, deps, impl) {
+      for (var i = 0; i < deps.length; i++) {
+        deps[i] = modules[deps[i]];
+      }
+      // 这个就可以动态对象啊  apply
+      modules[name] = impl.apply(null, deps);
+      // modules[name] = impl(deps);
+    }
+
+    function get(name) {
+      return modules[name];
+    }
+
+    return {
+      define: define,
+      get: get
+    };
+  })();
+
+  MyModules.define('bar', [], () => {
+    function hello(who) {
+      return `Let me introduce ${who}`;
+    }
+
+    return { hello: hello };
+  });
+
+  // 这个就可以动态对象啊  apply
+  MyModules.define('foo', ['bar'], bar1 => {
+    var hungry = 'hippo';
+
+    function awesome() {
+      console.log(bar.hello(hungry).toUpperCase());
+    }
+
+    return {
+      awesome: awesome
+    };
+  });
+
+  var bar = MyModules.get('bar'),
+    foo = MyModules.get('foo');
+
+  console.log(bar.hello('hippo')); // Let me introduce hippo
+
+  foo.awesome(); // LET ME INTRODUCE HIPPO
+}
+
+{
+  function foo() {
+    console.log('js不是动态作用域', ab); // 2
+  }
+
+  function bar() {
+    var ab = 3;
+    foo();
+  }
+
+  var ab = 2;
+  bar();
+}
