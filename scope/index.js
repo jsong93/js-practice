@@ -289,7 +289,7 @@
     return { hello: hello };
   });
 
-  // 这个就可以动态对象啊  apply
+  // 这个就可以动态对象啊  apply eval
   MyModules.define('foo', ['bar'], bar1 => {
     var hungry = 'hippo';
 
