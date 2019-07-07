@@ -323,3 +323,11 @@
   var ab = 2;
   bar();
 }
+
+(() => {
+  var bar = { hello: () => console.log('hello jsong') };
+  function foo(bar) {
+    // bar.hello();
+  }
+  foo.call(foo, 'bar');
+})();
