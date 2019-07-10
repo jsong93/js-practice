@@ -286,3 +286,108 @@
   console.log('_a_' in myObject);
   console.log(myObject.hasOwnProperty('a')); // 只检查本身
 })();
+
+(() => {
+  var array = [1, 2, 3];
+  var array2 = array.map(item => {
+    return item * 2;
+  });
+  console.log('map', array2.join()); // map 2,4,6
+})();
+
+(() => {
+  var array = [1, 2, 3];
+
+  for (const iterator of array) {
+    console.log('for of', iterator);
+  }
+
+  console.log('@@iterator' in array);
+  // for of 1
+  // for of 2
+  // for of 3
+
+  var it = array[Symbol.iterator]();
+  console.log(it.next()); // {value: 1, done: false}
+  console.log(it.next()); // {value: 2, done: false}
+  console.log(it.next()); // {value: 3, done: false}
+  console.log(it.next()); // {value: undefined, done: true}
+
+  var it2 = array.values();
+  console.log(it2.next()); // {value: 1, done: false}
+  console.log(it2.next()); // {value: 2, done: false}
+  console.log(it2.next()); // {value: 3, done: false}
+  console.log(it2.next()); // {value: undefined, done: true}
+})();
+
+(() => {
+  var myObject = {
+    a: 2,
+    b: 3
+  };
+
+  Object.defineProperty(myObject, Symbol.iterator, {
+    enumerable: false,
+    writable: false,
+    configurable: true,
+    value: function() {
+      var idx = 0;
+      var ks = Object.keys(this);
+      return {
+        // next: function() {
+        //   return {
+        //     value: o[ks[idx++]],
+        //     done: idx > ks.length
+        //   };
+        // }
+        next: () => {
+          return {
+            value: this[ks[idx++]],
+            done: idx > ks.length
+            // done: idx < 1
+          };
+        }
+      };
+    }
+  });
+
+  var it = myObject[Symbol.iterator]();
+  console.log(it.next()); // {value: 2, done: false}
+  console.log(it.next()); // {value: 3, done: false}
+  console.log(it.next()); // {value: undefined, done: true}
+
+  for (const iterator of myObject) {
+    console.log(iterator);
+  }
+  // 2
+  // 3
+})();
+
+(() => {
+  var myObject = {
+    a: 2,
+    b: function() {
+      console.log(this.a);
+    }
+  };
+
+  myObject.b();
+  myObject['b']();
+})();
+
+(() => {
+  var a = [1, 2, 3, 4];
+  a.map(item => {
+    if (item > 3) {
+      return;
+    }
+    console.log(item);
+  });
+})();
+
+(() => {
+  var obj = { a: 2 };
+  for (const key in obj) {
+    console.log(key);
+  }
+})();
