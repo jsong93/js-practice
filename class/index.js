@@ -124,3 +124,30 @@
   console.log(Another.greeting);
   console.log(Another.count);
 })();
+
+(() => {
+  var a = [];
+  var i = 0;
+  while (i < 300) {
+    a.push({ AXIS: i });
+    i++;
+  }
+  console.log(a);
+
+  a = a.slice(a.length - 1);
+  console.log(a);
+})();
+
+(() => {
+  var a = [];
+  var i = 0;
+  while (i < 300) {
+    a.push({ AXIS: i });
+    i++;
+  }
+  var data = { a };
+  console.log(data.a);
+
+  data.a = data.a.slice(data.a.length - 1);
+  console.log(data.a);
+})();
