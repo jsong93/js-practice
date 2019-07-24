@@ -266,3 +266,281 @@ console.log('-----------对象关联-------------');
   console.log(Object.getPrototypeOf(b) === a);
   console.log(b.constructor instanceof Object);
 })();
+
+console.log('-----------相互委托--------------');
+(() => {
+  'use strict';
+  var a = {};
+  a = Object.create({});
+  var b = Object.create(a);
+  console.log(a.a);
+})();
+
+(() => {
+  var Foo = {};
+  var a1 = Object.create(Foo);
+
+  console.log(a1);
+
+  Object.defineProperty(Foo, 'constructor', {
+    enumerable: false,
+    value: function Gotcha() {}
+  });
+
+  console.log(a1);
+})();
+
+(() => {
+  var Foo = {
+      init: function(who) {
+        this.me = who;
+      },
+      identify: function() {
+        return `I am ${this.me}`;
+      }
+    },
+    Bar = Object.create(Foo);
+  Bar.speak = function() {
+    console.log(this.identify());
+  };
+
+  var b1 = Object.create(Bar);
+  b1.init('jsong');
+  b1.speak();
+})();
+
+(() => {
+  var a = {
+    errors: [],
+    // es6 简洁方法声明 可以省略function
+    getUser() {},
+    getPassword() {}
+  };
+})();
+
+(() => {
+  var Foo = {
+    bar: function(x) {
+      if (x < 10) {
+        return Foo.bar(x * 2);
+      }
+    }
+  };
+
+  console.log(Foo.bar(1));
+})();
+
+(() => {
+  var Foo = {},
+    Bar = Object.create(Foo);
+
+  console.log(Foo.isPrototypeOf(Bar));
+  // console.log(Bar instanceof Foo);
+  var Baz = function() {};
+  var a = new Baz();
+  console.log(a instanceof Baz);
+  console.log(Baz.isPrototypeOf(a));
+})();
+
+(() => {
+  class a extends Array {}
+})();
+
+(() => {
+  class c {
+    constructor() {
+      this.num = Math.random();
+    }
+
+    rand() {
+      console.log(`random: ${this.num}`);
+    }
+  }
+
+  console.log(c);
+  var c1 = new c();
+  console.log(c1);
+  c1.rand();
+
+  c.prototype.rand = function() {
+    console.log(`random: ${Math.round(this.num * 100)}`);
+  };
+
+  c1.rand();
+})();
+
+console.log('--------------class-----------------');
+(() => {
+  var a = {
+    foo() {
+      console.log('a');
+    },
+    bar() {
+      console.log('bar');
+    }
+  };
+
+  var b = {
+    foo() {
+      console.log('b');
+    }
+  };
+
+  Object.setPrototypeOf(b, a);
+  b.foo();
+  b.bar();
+})();
+
+(() => {
+  class a {
+    foo(x) {
+      console.log(x);
+    }
+  }
+})();
+
+console.log('-------------class--------------');
+(() => {
+  class A {
+    constructor(name) {
+      this.name = name;
+    }
+
+    sayHello() {
+      console.log(`hello ${this.name}`);
+    }
+
+    saySeeYou() {
+      console.log('see you');
+    }
+  }
+
+  class B extends A {
+    constructor(name, age) {
+      super(name);
+      this.age = age;
+    }
+
+    sayHello() {
+      super.sayHello();
+      console.log(`age ${this.age}`);
+    }
+  }
+
+  var a = new A('jsong');
+  a.sayHello(); // hello jsong
+  var b = new B('jsong', '11');
+  b.sayHello(); // hello jsong
+  // age 11
+
+  b.saySeeYou(); // see you
+})();
+
+(() => {
+  function A(name) {
+    this.name = name;
+  }
+  A.prototype.sayHello = function() {
+    console.log(`hello ${this.name}`);
+  };
+  A.prototype.saySeeYou = function() {
+    console.log('see you');
+  };
+
+  function B(name, age) {
+    A.call(this, name);
+    this.age = age;
+  }
+  B.prototype = Object.create(A.prototype);
+  B.prototype.sayHello = function() {
+    A.prototype.sayHello.call(this);
+    console.log(`age ${this.age}`);
+  };
+
+  var a = new A('jsong');
+  a.sayHello(); // hello jsong
+  var b = new B('jsong', '11');
+  b.sayHello(); // hello jsong
+  // age 11
+
+  b.saySeeYou(); // see you
+})();
+
+(() => {
+  class C {
+    sayHello() {
+      console.log('hello world');
+    }
+  }
+
+  var c1 = new C();
+  c1.sayHello(); // hello world
+
+  C.prototype.sayHello = function() {
+    console.log('see you world');
+  };
+
+  var c2 = new C();
+  c2.sayHello(); // see you world
+
+  c1.sayHello(); // see you world
+})();
+
+(() => {
+  class C {
+    constructor() {
+      C.prototype.count++;
+      console.log(`hello ${this.count}`);
+    }
+  }
+
+  C.prototype.count = 0;
+
+  var c1 = new C(); // hello 1
+  console.log(c1.count); // 1
+  var c2 = new C(); // hello 2
+  console.log(c1.count); // 2
+  console.log(c2.count); // 2
+})();
+
+(() => {
+  class A {
+    foo() {
+      console.log('A');
+    }
+  }
+
+  var B = {
+    foo() {
+      console.log('B');
+    }
+  };
+
+  var C = {
+    foo: A.prototype.foo
+  };
+
+  Object.setPrototypeOf(C, B);
+
+  C.foo(); // A
+
+  var D = Object.create(B);
+  D.foo = A.prototype.foo.toMethod(D, 'foo');
+
+  D.foo();
+})();
+
+(() => {
+  var base = {
+    foo() {
+      console.log('base');
+    }
+  };
+
+  var obj = Object.create(base);
+  obj.foo();
+  obj.foo = function() {
+    // super.foo();
+  };
+  obj.foo();
+})();
