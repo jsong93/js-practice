@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      .child {
+        background-color: silver;
+        margin: 10px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="grandfather"
+      class="grandfather"
+      style="height:200px;width:400px;background-color: indianred"
+    >
+      grandfather
+      <ul
+        id="father"
+        class="father"
+        style="margin:40px;background-color: cornflowerblue"
+      >
+        <li id="child1" class="child">child1</li>
+        <li id="child2" class="child">child2</li>
+        <li id="child3" class="child">child3</li>
+        <li id="child4" class="child">child4</li>
+      </ul>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
