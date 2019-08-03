@@ -510,6 +510,11 @@ console.log('-------------class--------------');
     }
   }
 
+  class AA extends A {
+    foo() {
+      super(); // ujUncaught SyntaxError: 'super' keyword unexpected here
+    }
+  }
   var B = {
     foo() {
       console.log('B');
@@ -525,7 +530,7 @@ console.log('-------------class--------------');
   C.foo(); // A
 
   var D = Object.create(B);
-  D.foo = A.prototype.foo.toMethod(D, 'foo');
+  D.foo = A.prototype.foo.toMethod(D, 'foo'); // toMethod is not function
 
   D.foo();
 })();
