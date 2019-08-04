@@ -19,3 +19,10 @@ father.addEventListener('click', function(e) {
 //     });
 //   }
 // }
+
+for (var i = 0; i < 5; i++) {
+  function foo() {
+    console.log(i);
+  }
+  foo();
+}

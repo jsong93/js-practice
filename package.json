@@ -37,7 +37,8 @@
     "requirejs": "^2.3.6",
     "sass": "^1.20.1",
     "scss": "^0.2.4",
-    "seajs": "^3.0.3"
+    "seajs": "^3.0.3",
+    "three.js": "^0.77.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.133",
